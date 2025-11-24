@@ -1,25 +1,77 @@
 <section class="page-header">
   <div>
     <h1>Employee Details</h1>
-    <p>Review complete information.</p>
+    <p>Review complete employee information</p>
   </div>
-  <button (click)="backToList()">Back</button>
+  <div class="header-actions">
+    <button type="button" class="btn-secondary" (click)="backToList()">
+      <span>←</span> Back to List
+    </button>
+  </div>
 </section>
 
-<section *ngIf="errorMessage" class="info-banner error">{{ errorMessage }}</section>
+<section *ngIf="isLoading" class="info-banner loading">
+  <span>Loading employee details...</span>
+</section>
 
-<div class="details-card" *ngIf="employee">
-  <div class="detail-row">
-    <span>Full name</span>
-    <strong>{{ employee.firstName }} {{ employee.lastName }}</strong>
-  </div>
-  <div class="detail-row">
-    <span>Email</span>
-    <strong>{{ employee.email }}</strong>
-  </div>
-  <div class="detail-row">
-    <span>Salary</span>
-    <strong>{{ employee.salary | currency }}</strong>
+<section *ngIf="errorMessage && !isLoading" class="info-banner error">
+  {{ errorMessage }}
+</section>
+
+<div class="details-container" *ngIf="employee && !isLoading">
+  <div class="details-card">
+    <div class="card-header">
+      <div class="employee-avatar">
+        <span>{{ employee.firstName.charAt(0) }}{{ employee.lastName.charAt(0) }}</span>
+      </div>
+      <div class="employee-title">
+        <h2>{{ employee.firstName }} {{ employee.lastName }}</h2>
+        <p class="employee-id">Employee ID: #{{ employee.id }}</p>
+      </div>
+    </div>
+
+    <div class="details-section">
+      <h3>Personal Information</h3>
+      <div class="detail-grid">
+        <div class="detail-item">
+          <label>First Name</label>
+          <div class="detail-value">{{ employee.firstName }}</div>
+        </div>
+        <div class="detail-item">
+          <label>Last Name</label>
+          <div class="detail-value">{{ employee.lastName }}</div>
+        </div>
+        <div class="detail-item full-width">
+          <label>Email Address</label>
+          <div class="detail-value">
+            <a [href]="'mailto:' + employee.email">{{ employee.email }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="details-section">
+      <h3>Compensation</h3>
+      <div class="detail-grid">
+        <div class="detail-item">
+          <label>Annual Salary</label>
+          <div class="detail-value salary">{{ employee.salary | currency:'USD':'symbol':'1.0-0' }}</div>
+        </div>
+        <div class="detail-item">
+          <label>Monthly Salary</label>
+          <div class="detail-value">{{ (employee.salary / 12) | currency:'USD':'symbol':'1.2-2' }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-actions">
+      <button type="button" class="btn-primary" (click)="editEmployee()">
+        <span>✏️</span> Edit Employee
+      </button>
+      <button type="button" class="btn-danger" (click)="deleteEmployee()">
+        <span>🗑️</span> Delete Employee
+      </button>
+    </div>
   </div>
 </div>
 
