@@ -1,0 +1,47 @@
+<section class="page-header">
+  <div>
+    <h1>{{ isEditMode ? 'Edit Employee' : 'Add Employee' }}</h1>
+    <p>{{ isEditMode ? 'Update employee details' : 'Create a new employee record' }}</p>
+  </div>
+  <button type="button" (click)="goBack()">Back to list</button>
+</section>
+
+<form [formGroup]="employeeForm" (ngSubmit)="onSubmit()" class="employee-form">
+  <label>
+    First name
+    <input type="text" formControlName="firstName" />
+  </label>
+  <div class="error" *ngIf="employeeForm.get('firstName')?.invalid && employeeForm.get('firstName')?.touched">
+    First name is required
+  </div>
+
+  <label>
+    Last name
+    <input type="text" formControlName="lastName" />
+  </label>
+  <div class="error" *ngIf="employeeForm.get('lastName')?.invalid && employeeForm.get('lastName')?.touched">
+    Last name is required
+  </div>
+
+  <label>
+    Email
+    <input type="email" formControlName="email" />
+  </label>
+  <div class="error" *ngIf="employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched">
+    Provide a valid email
+  </div>
+
+  <label>
+    Salary
+    <input type="number" formControlName="salary" min="0" step="0.01" />
+  </label>
+  <div class="error" *ngIf="employeeForm.get('salary')?.invalid && employeeForm.get('salary')?.touched">
+    Salary must be positive
+  </div>
+
+  <button type="submit" class="primary" [disabled]="isSubmitting">
+    {{ isEditMode ? 'Update' : 'Create' }}
+  </button>
+  <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
+</form>
+

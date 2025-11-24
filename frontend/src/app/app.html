@@ -1,0 +1,14 @@
+<div class="app-shell">
+  <header *ngIf="authService.isAuthenticated()">
+    <div class="brand" routerLink="/employees">Employee Manager</div>
+    <nav>
+      <a routerLink="/employees" routerLinkActive="active">Employees</a>
+      <button type="button" (click)="logout()">Logout</button>
+    </nav>
+  </header>
+
+  <main>
+    <router-outlet />
+  </main>
+</div>
+

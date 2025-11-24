@@ -1,0 +1,40 @@
+<section class="page-header">
+  <div>
+    <h1>Employees</h1>
+    <p>Manage employee records with ease.</p>
+  </div>
+  <button class="primary" (click)="goToCreate()">Add Employee</button>
+</section>
+
+<section *ngIf="isLoading" class="info-banner">Loading employees...</section>
+<section *ngIf="errorMessage" class="info-banner error">{{ errorMessage }}</section>
+
+<div class="table-wrapper" *ngIf="!isLoading && employees.length">
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Salary</th>
+        <th class="actions">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let employee of employees">
+        <td>{{ employee.firstName }} {{ employee.lastName }}</td>
+        <td>{{ employee.email }}</td>
+        <td>{{ employee.salary | currency }}</td>
+        <td class="actions">
+          <button (click)="viewDetails(employee)">Details</button>
+          <button (click)="editEmployee(employee)">Edit</button>
+          <button class="danger" (click)="deleteEmployee(employee)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<section class="info-banner" *ngIf="!isLoading && !employees.length">
+  No employees found. Create your first one!
+</section>
+

@@ -1,0 +1,59 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: #f5f7fb;
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background-color: #003049;
+  color: #fff;
+  gap: 1rem;
+}
+
+.brand {
+  font-size: 1.25rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+nav {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+
+  a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+
+    &.active {
+      border-bottom: 2px solid #f77f00;
+      padding-bottom: 0.15rem;
+    }
+  }
+
+  button {
+    border: none;
+    border-radius: 999px;
+    padding: 0.35rem 1rem;
+    background-color: #f77f00;
+    color: #fff;
+    cursor: pointer;
+  }
+}
+
+main {
+  flex: 1;
+  padding: 2rem;
+}
+

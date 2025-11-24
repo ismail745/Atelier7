@@ -1,0 +1,25 @@
+<section class="page-header">
+  <div>
+    <h1>Employee Details</h1>
+    <p>Review complete information.</p>
+  </div>
+  <button (click)="backToList()">Back</button>
+</section>
+
+<section *ngIf="errorMessage" class="info-banner error">{{ errorMessage }}</section>
+
+<div class="details-card" *ngIf="employee">
+  <div class="detail-row">
+    <span>Full name</span>
+    <strong>{{ employee.firstName }} {{ employee.lastName }}</strong>
+  </div>
+  <div class="detail-row">
+    <span>Email</span>
+    <strong>{{ employee.email }}</strong>
+  </div>
+  <div class="detail-row">
+    <span>Salary</span>
+    <strong>{{ employee.salary | currency }}</strong>
+  </div>
+</div>
+

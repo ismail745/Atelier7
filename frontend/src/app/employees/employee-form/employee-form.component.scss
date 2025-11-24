@@ -1,0 +1,59 @@
+:host {
+  display: block;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.employee-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
+
+  label {
+    display: flex;
+    flex-direction: column;
+    font-weight: 600;
+  }
+
+  input {
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    border: 1px solid #cfd8dc;
+    margin-top: 0.35rem;
+    font-size: 1rem;
+  }
+
+  button {
+    align-self: flex-start;
+  }
+}
+
+button {
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.65rem 1.5rem;
+  cursor: pointer;
+  background-color: #669bbc;
+  color: #fff;
+
+  &.primary {
+    background-color: #f77f00;
+  }
+}
+
+.error {
+  color: #d32f2f;
+  font-size: 0.875rem;
+}
+

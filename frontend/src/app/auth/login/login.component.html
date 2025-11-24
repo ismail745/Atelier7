@@ -1,0 +1,28 @@
+<section class="login-container">
+  <div class="login-card">
+    <h1>Employee Portal</h1>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <label>
+        Username
+        <input type="text" formControlName="username" placeholder="Enter username" />
+      </label>
+      <div class="error" *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+        Username is required
+      </div>
+
+      <label>
+        Password
+        <input type="password" formControlName="password" placeholder="Enter password" />
+      </label>
+      <div class="error" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+        Password is required
+      </div>
+
+      <button type="submit" [disabled]="isSubmitting">
+        {{ isSubmitting ? 'Signing in...' : 'Login' }}
+      </button>
+      <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
+    </form>
+  </div>
+</section>
+
