@@ -1,0 +1,52 @@
+version: '3.8'
+
+# Configuration pour le développement
+# Utilise les volumes pour le hot-reload
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: employees-mysql-dev
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: employees_db
+      MYSQL_USER: employee_user
+      MYSQL_PASSWORD: employee_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data_dev:/var/lib/mysql
+    networks:
+      - employees-network
+
+  # Backend en mode développement (avec volumes pour hot-reload)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: employees-backend-dev
+    restart: unless-stopped
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/employees_db?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: rootpassword
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: "true"
+      SECURITY_JWT_SECRET: RW1wbG95ZWVNYW5hZ2VtZW50QXBwU2VjcmV0S2V5MTIzNDU2Nzg=
+      SECURITY_JWT_EXPIRATION: 86400000
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    networks:
+      - employees-network
+
+volumes:
+  mysql_data_dev:
+    driver: local
+
+networks:
+  employees-network:
+    driver: bridge
+
