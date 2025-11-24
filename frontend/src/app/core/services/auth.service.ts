@@ -22,6 +22,8 @@ export class AuthService {
         if (response?.accessToken) {
           localStorage.setItem(this.tokenKey, response.accessToken);
           this.authenticated.set(true);
+        } else {
+          console.warn('Login response missing accessToken:', response);
         }
       })
     );

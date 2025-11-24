@@ -64,6 +64,8 @@ Réponse type pour le login :
 
 Ce token doit être envoyé dans l’en-tête `Authorization: Bearer <jwt>` pour toutes les routes `/api/employees`.
 
+> 🧑‍💼 Un administrateur (`admin/password123`) est automatiquement inséré au démarrage via `DataInitializer`. Si vous modifiez ce compte, pensez à ajuster vos identifiants de test.
+
 ---
 
 ## 5. Lancer le frontend Angular

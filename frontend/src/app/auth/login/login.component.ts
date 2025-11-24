@@ -37,13 +37,24 @@ export class LoginComponent {
 
     this.isSubmitting = true;
     this.authService.login(this.loginForm.getRawValue()).subscribe({
-      next: () => {
+      next: (response) => {
         this.isSubmitting = false;
-        this.router.navigate(['/employees']);
+        if (response?.accessToken) {
+          this.router.navigate(['/employees']);
+        } else {
+          this.errorMessage = 'Login failed: No token received.';
+        }
       },
-      error: () => {
+      error: (err) => {
         this.isSubmitting = false;
-        this.errorMessage = 'Invalid credentials. Please try again.';
+        console.error('Login error:', err);
+        if (err.status === 401 || err.status === 403) {
+          this.errorMessage = 'Invalid username or password.';
+        } else if (err.status === 0) {
+          this.errorMessage = 'Cannot connect to server. Is the backend running on http://localhost:8080?';
+        } else {
+          this.errorMessage = `Login failed: ${err.message || 'Unknown error'}`;
+        }
       }
     });
   }
